@@ -35,8 +35,6 @@ def get_rss_url(url):
 def main():
     dotenv.load_dotenv()
 
-    # TODO - some diffing so we still get new followings in feed
-
     if not has_scraped_users():
         scrape_users()
 
