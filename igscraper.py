@@ -26,3 +26,4 @@ def scrape(group, username, password):
     stats.numbers(len(users), scraper.expected_number)
     if (differs): stats.diff(users, last_users)
     print('Took ' + str(datetime.now() - startTime))
+    return users
