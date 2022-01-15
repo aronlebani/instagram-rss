@@ -1,6 +1,7 @@
 import sys
 import socket
-import urllib
+import urllib.request
+import urllib.error
 import time
 import getopt
 import xml.dom.minidom
@@ -16,10 +17,11 @@ def rssFetch(url):
     """
 
     try:
-        f_rss = urllib.urlopen (url)
-    except IOError:
+        f_rss = urllib.request.urlopen(url)
+    except:
         if not silent and url != 'merged.rss' and url != 'seen.rss':
             print("Failed to retrieve RSS feed %s" % (url))
+            raise
         return False
 
     return f_rss.read()
@@ -84,7 +86,7 @@ def rssComposeItem (item):
     elemItem.appendChild(createElementText("link", item["link"]))
     elemItem.appendChild(createElementText("date", item["date"]))
     elemItem.appendChild(createElementTextNS("http://localhost/rssmerger/", "rm:publisher", item["publisher"]))
-    if item.has_key("description"):
+    if "description" not in item:
         elemItem.appendChild(createElementText("description", item["description"]))
 
     return elemItem
