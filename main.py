@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3
+
 import rssmerger
 import igscraper
 import dotenv
@@ -25,7 +27,7 @@ def scrape_users():
     igscraper.scrape("following", username, password) 
 
 def get_profile_stub(url):
-    return url.replace("www.", "").replace("https://instagram.com/", "")
+    return url.replace("www.", "").replace("https://instagram.com/", "").replace("/", "")
 
 def get_rss_url(url):
     stub = get_profile_stub(url)
@@ -42,13 +44,13 @@ def main():
 
     rss_urls = {}
     for index, url in enumerate(users):
-        rss_urls[index] = get_rss_url(url)
+        rss_urls[get_profile_stub(url)] = get_rss_url(url)
 
     # Use these for testing
-    rss_urls = {
-        "surprisechef": get_rss_url("surprisechef"),
-        "karateboogaloo": get_rss_url("karateboogaloo")
-    }
+    # rss_urls = {
+    #     "surprisechef": get_rss_url("surprisechef"),
+    #     "karateboogaloo": get_rss_url("karateboogaloo")
+    # }
 
     rssmerger.combine(rss_urls)
 

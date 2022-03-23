@@ -19,11 +19,12 @@ def _write(path, data):
     yet, create it."""
 
     os.makedirs(os.path.dirname(path), exist_ok = True)
-    try:
-        pickle.dump(data, open(path, 'wb'))
-        return True
-    except:
-        return False
+    with (open(path, 'w')) as file:
+        try:
+            file.writelines("%s\n" % x for x in data)
+            return True
+        except:
+            return False
 
 
 def _read(path):
@@ -31,7 +32,7 @@ def _read(path):
 
     with (open(path, 'rb')) as file:
         try:
-            return pickle.load(file)
+            return file.readlines()
         except:
             return False
 
@@ -41,7 +42,7 @@ def store(username, group, usersList):
     same name as the username."""
 
     date = datetime.fromtimestamp(time.time()).strftime('%Y-%m-%dT%H:%M:%S')
-    path = '{}/{}{}.pkl'.format(_base_directory(username), group, date)
+    path = '{}/{}{}'.format(_base_directory(username), group, date)
     return _write(path, usersList)
 
 

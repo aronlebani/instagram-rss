@@ -4,8 +4,10 @@ Generate an rss feed from your instagram
 
 ## Todo
 
-- [ ] Run the scraper every time, but diff the most recent two pkl files so we only add new accounts to the feed
 - [ ] Run the scraper headless
+- [ ] Cron job to run scraper every X days
+- [ ] Cron job to run merger every X hours
+- [ ] CLI
 
 ## Notes
 
